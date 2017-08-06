@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using ShoppingCart.Models;
 using Newtonsoft.Json;
 using System.Text;
+using ShoppingCart.Repositories;
+using System.Collections.Generic;
 
 namespace ShoppingCart.IntegrationTests
 {
@@ -28,7 +30,16 @@ namespace ShoppingCart.IntegrationTests
         public async Task item_can_be_added_to_basket()
         {
             // Act
-            var response = await _client.PostAsync("/api/basket?userId=1&itemId=1", null);
+            var basketItems = new List<BasketItemDto>{
+                new BasketItemDto{
+                    ItemId = 1,
+                    Quantity = 1
+                }
+            };
+            var stringContent = new StringContent(JsonConvert.SerializeObject(basketItems),
+                                    Encoding.UTF8, 
+                                    "application/json");
+            var response = await _client.PostAsync("/api/basket?userId=1", stringContent);
             response.EnsureSuccessStatusCode();
         }
     }

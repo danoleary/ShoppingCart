@@ -20,12 +20,12 @@ namespace ShoppingCart.UnitTests
             // Arrange
             var mockRepo = new Mock<BasketRepository>();
             mockRepo.Setup(m =>
-                m.AddItemToBasket(It.IsAny<long>(), It.IsAny<long>())).Returns(Task.FromResult(It.IsAny<Basket>()));
+                m.AddItemsToBasket(It.IsAny<long>(), It.IsAny<List<BasketItemDto>>())).Returns(Task.FromResult(It.IsAny<Basket>()));
             var controller = new BasketController(mockRepo.Object);
 
 
             // Act
-            var result = await controller.AddItem(It.IsAny<long>(), It.IsAny<long>());
+            var result = await controller.AddItems(It.IsAny<long>(), It.IsAny<List<BasketItemDto>>());
 
             // Assert
             Assert.IsType<ObjectResult>(result);

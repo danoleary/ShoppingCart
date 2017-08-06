@@ -6,6 +6,7 @@ using ShoppingCart.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ShoppingCart.UnitTests
 {
@@ -41,7 +42,10 @@ namespace ShoppingCart.UnitTests
             await _context.SaveChangesAsync();
 
             //act
-            await this._testClass.AddItemToBasket(user.Id, item.Id);
+            await this._testClass.AddItemsToBasket(user.Id, new List<BasketItemDto>{new BasketItemDto{
+                ItemId = item.Id,
+                Quantity = 1
+            }});
 
             //assert
             user = 
@@ -69,7 +73,10 @@ namespace ShoppingCart.UnitTests
             await _context.SaveChangesAsync();
 
             //act
-            await this._testClass.AddItemToBasket(user.Id, item.Id);
+            await this._testClass.AddItemsToBasket(user.Id, new List<BasketItemDto>{new BasketItemDto{
+                ItemId = item.Id,
+                Quantity = 1
+            }});
 
             //assert
             user = 
@@ -95,10 +102,16 @@ namespace ShoppingCart.UnitTests
             _context.Users.Add(user);
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
-            await this._testClass.AddItemToBasket(user.Id, item.Id);
+            await this._testClass.AddItemsToBasket(user.Id, new List<BasketItemDto>{new BasketItemDto{
+                ItemId = item.Id,
+                Quantity = 1
+            }});
 
             //act
-            await this._testClass.AddItemToBasket(user.Id, item.Id);
+            await this._testClass.AddItemsToBasket(user.Id, new List<BasketItemDto>{new BasketItemDto{
+                ItemId = item.Id,
+                Quantity = 1
+            }});
 
             //assert
             user = 

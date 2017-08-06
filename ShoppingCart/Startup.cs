@@ -37,6 +37,7 @@ namespace ShoppingCart
             services.AddTransient<ItemRepository, ItemRepository>();
             services.AddTransient<UserRepository, UserRepository>();
             services.AddTransient<BasketRepository, BasketRepository>();
+            services.AddTransient<OrderRepository, OrderRepository>();
             services.AddTransient<ItemImportService, ItemImportService>();
         }
 

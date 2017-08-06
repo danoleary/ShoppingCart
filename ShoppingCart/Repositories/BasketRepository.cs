@@ -66,7 +66,11 @@ namespace ShoppingCart.Repositories
 
         public virtual async Task<Basket> Get(long userId)
         {
-            var user = await _context.Users.Include(x => x.Basket.Items).SingleOrDefaultAsync(x => x.Id == userId);
+            var user =
+                await _context.Users
+                        .Include(x => x.Basket.Items)
+                        .ThenInclude(y => y.Item)
+                        .SingleOrDefaultAsync(x => x.Id == userId);
             // handle invalid user id
 
             return user.Basket;
